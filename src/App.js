@@ -4,6 +4,7 @@ import Start from "./components/Start";
 import blob from "./img/blob.png";
 
 function App() {
+  //заводим переменные состояния (1 значение - само состояние 2 - функция для изменения состояния)
   const [start, setStart] = useState(true);
   const [showAnswers, setShowAnswers] = useState(false);
   const [allComplete, setAllComplete] = useState(false);
@@ -15,17 +16,17 @@ function App() {
     type: "",
     category: "",
   });
-
+  //проверяем есть ли ответ на все вопросы при каждорм изменении массива questions
   useEffect(() => {
     setAllComplete(
       questions.every((question) => question.selected_answer !== undefined)
     );
   }, [questions]);
-
+  //при изменении состояния showAnswers вызываем функцию. проверки ответов
   useEffect(() => {
     checkAnswers(questions);
   }, [showAnswers]);
-
+//функция проверки ответов срабатывает только когда на все вопросы был дан ответ
   function checkAnswers(questions) {
     if (showAnswers) {
       questions.map((question) => {
@@ -37,7 +38,7 @@ function App() {
       });
     }
   }
-
+//функция обнуления 
   function handleStart(event) {
     event.preventDefault();
     setCounter(0);
@@ -45,6 +46,7 @@ function App() {
     setQuestions([]);
     setStart((prevStart) => !prevStart);
   }
+  //возвращаем компонент start если еще не были были выбраны вопросы иначе возвращаем список этих вопросов
   return (
     <>
       {start ? (
