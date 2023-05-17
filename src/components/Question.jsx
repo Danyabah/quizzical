@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import parse from "html-react-parser";
-
+//компонент вопоса
 export default function Question(props) {
+  //функиця для определения стиля вопроса в зависимости от параметров
   function styler(option, index) {
     if (props.showAnswers === true) {
       if (props.question.correct_answer === option) {
@@ -17,7 +18,7 @@ export default function Question(props) {
         : { backgroundColor: "#F5F7FB" };
     }
   }
-
+  //генерируем кнопки с ответами
   const options = props.question.options.map((option, index) => (
     <button
       key={index}
@@ -29,7 +30,7 @@ export default function Question(props) {
       {parse(option)}
     </button>
   ));
-
+ //выозвращаем html разметку
   return (
     <div className="question">
       <div className="question-title">{parse(props.question.question)}</div>
