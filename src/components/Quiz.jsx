@@ -2,15 +2,19 @@ import React, { useEffect, useState } from "react";
 import Question from "./Question";
 import { nanoid } from "nanoid";
 import { InfinitySpin } from "react-loader-spinner";
-
+//компонент вопроса
 export default function Quiz(props) {
+  //достаем из параметров выбранные пользователем вопросы
   const { countQues, difficult, type, category } = props.data;
+   //в хук useEffect оборачиваются сторонние обращения
   useEffect(function () {
+    //обращаемся к api вопросам в строке передаем параметры
     fetch(
       `https://opentdb.com/api.php?amount=${countQues}&difficulty=${difficult}&type=${type}&category=${category}`
     )
       .then((res) => res.json())
       .then((data) =>
+              //с помощью setQuestions в массив вопросов генерируем объекты
         props.setQuestions(
           data.results.map((question) => {
             return {
@@ -29,9 +33,10 @@ export default function Quiz(props) {
         )
       );
   }, []);
-
+ //функция выббора ответа
   function selectAnswer(event, quest_id, option_id) {
     props.setQuestions(() => {
+       //при выборе ответа находим этот вопрос в массиве и добавляем ему ключ selected_answer
       return props.questions.map((quest, qid) => {
         if (quest_id === qid) {
           return { ...quest, selected_answer: option_id };
@@ -41,7 +46,7 @@ export default function Quiz(props) {
       });
     });
   }
-
+//возвращаем массив вопросов
   return (
     <>
       {props.questions.length ? (
