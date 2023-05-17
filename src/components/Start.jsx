@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 export default function Start(props) {
+  //при каждом изменении формы сохраняем в объект введенные значения
   function handleChange(event) {
     const { name, value } = event.target;
     props.setFormData((prevData) => {
@@ -10,6 +11,7 @@ export default function Start(props) {
       };
     });
   }
+   //форма для выбора категории и всех настроек
   return (
     <div className="start">
       <h1 className="start-title">Quizzical</h1>
